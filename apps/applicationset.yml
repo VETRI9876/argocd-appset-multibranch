@@ -3,32 +3,26 @@ kind: ApplicationSet
 metadata:
   name: microservices-appset
   namespace: argocd
-
 spec:
   goTemplate: true
-
   generators:
     - git:
         repoURL: https://github.com/VETRI9876/argocd-appset-multibranch.git
         revision: main
         directories:
           - path: apps/*/*
-
   template:
     metadata:
-      name: '{{path.basename}}-{{path.dirname | basename}}'
+      name: '{{ index (splitList "/" .path) 2 }}-{{ index (splitList "/" .path) 1 }}'
     spec:
       project: argo-project
-
       source:
         repoURL: https://github.com/VETRI9876/argocd-appset-multibranch.git
         targetRevision: main
         path: '{{path}}'
-
       destination:
         server: https://kubernetes.default.svc
         namespace: dev
-
       syncPolicy:
         automated:
           prune: true
