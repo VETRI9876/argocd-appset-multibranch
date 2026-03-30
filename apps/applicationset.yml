@@ -13,13 +13,13 @@ spec:
           - path: apps/*/*
   template:
     metadata:
-      name: '{{ index (splitList "/" .path) 2 }}-{{ index (splitList "/" .path) 1 }}'
+      name: '{{ index (splitList "/" .path.path) 2 }}-{{ index (splitList "/" .path.path) 1 }}'
     spec:
       project: argo-project
       source:
         repoURL: https://github.com/VETRI9876/argocd-appset-multibranch.git
         targetRevision: main
-        path: '{{path}}'
+        path: '{{ .path.path }}'
       destination:
         server: https://kubernetes.default.svc
         namespace: dev
