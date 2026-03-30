@@ -18,7 +18,7 @@ spec:
     metadata:
       name: '{{path.basename}}-{{path.dirname | basename}}'
     spec:
-      project: default
+      project: argo-project
 
       source:
         repoURL: https://github.com/VETRI9876/argocd-appset-multibranch.git
